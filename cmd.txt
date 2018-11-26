@@ -1,0 +1,43 @@
+connect 
+ssh jsong32@stargate.cs.usfca.edu
+ssh orion12
+ssh orion11 not sure which one should go
+
+open juypter
+pyspark --master=spark://orion11:20071
+
+remote connect
+ssh -L 8080:localhost:20075 orion11
+=========================================
+master orion
+orion11 20071
+
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://orion11.cs.usfca.edu:20910</value>
+    </property>
+
+
+SPARK_MASTER_HOST=orion11
+SPARK_MASTER_PORT=20071
+SPARK_MASTER_WEBUI_PORT=20072
+SPARK_WORKER_PORT=20073
+SPARK_WORKER_WEBUI_PORT=20074
+SPARK_WORKER_CORES=2
+SPARK_WORKER_DIR=/bigdata/$(whoami)/spark-worker
+SPARK_LOG_DIR=/bigdata/$(whoami)/spark-logs
+
+export PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser --port=20075'
+
+ssh -L 8080:localhost:20075 orion11
+
+# Run this to start the driver (ideally in tmux, screen, etc.)
+# Here, 'orion11' refers to the location of the master node.
+
+pyspark --master=spark://orion11:20071
+
+# Then, in another terminal on your local machine:
+ssh -L 8080:localhost:20075 orion11
+
+=========================================
+hdfs dfs -rm -r -skipTrash /tmp/yourname/output_123
