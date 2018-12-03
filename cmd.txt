@@ -1,6 +1,6 @@
 connect 
 ssh jsong32@stargate.cs.usfca.edu
-ssh orion12
+//ssh orion12
 ssh orion11 not sure which one should go
 
 open juypter
@@ -33,8 +33,6 @@ ssh -L 8080:localhost:20075 orion11
 
 # Run this to start the driver (ideally in tmux, screen, etc.)
 # Here, 'orion11' refers to the location of the master node.
-
-pyspark --master=spark://orion11:20071
 
 # Then, in another terminal on your local machine:
 ssh -L 8080:localhost:20075 orion11
